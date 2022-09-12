@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.shoply.models.Users
+import com.example.shoply.prevalent.Prevalent
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import io.paperdb.Paper
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -18,6 +20,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        //  Paper library
+        Paper.init(this)
 
         listeners()
     }
@@ -46,6 +51,14 @@ class LoginActivity : AppCompatActivity() {
 
     //  Allow user to login into the account
     private fun allowAccessToAccount(phone: String, password: String) {
+
+        //  Initialize paper library to store the user data in the prevalent
+        if (remember_me_checkbox.isChecked) {
+
+            //  Store the phone number and the password in paper library
+            Paper.book().write(Prevalent().userPhoneKey, phone)
+            Paper.book().write(Prevalent().userPasswordKey, password)
+        }
 
         val db = FirebaseDatabase.getInstance().reference
 
