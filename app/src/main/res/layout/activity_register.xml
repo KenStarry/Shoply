@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/register"
+        android:src="@drawable/login"
         android:scaleType="centerCrop"/>
 
     <LinearLayout
@@ -30,8 +30,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/stroke_btn"
+            android:inputType="text"
+            android:id="@+id/registerUsernameInput"
+            android:padding="16dp"
+            android:hint="Full Name"
+            android:textColor="@color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:layout_marginTop="24dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/stroke_btn"
             android:inputType="phone"
-            android:id="@+id/loginPhoneNumberInput"
+            android:id="@+id/registerPhoneNumberInput"
             android:padding="16dp"
             android:hint="phone Number"
             android:textColor="@color/white"
@@ -43,71 +55,22 @@
             android:layout_height="wrap_content"
             android:background="@drawable/stroke_btn"
             android:inputType="textPassword"
-            android:id="@+id/loginPasswordInput"
+            android:id="@+id/registerPasswordInput"
             android:padding="16dp"
             android:hint="password"
             android:textColor="@color/white"
             android:textColorHint="@android:color/darker_gray"
             android:layout_marginTop="16dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/remember_me_checkbox"
-                style="@style/Widget.Material3.CompoundButton.CheckBox"
-                android:text="Remember me"
-                android:textSize="13sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/forgot_password"
-                android:text="Forgot Password"
-                android:textColor="@color/blue"/>
-
-        </LinearLayout>
-
         <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/register_btn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/normal_btn"
-            android:text="Login"
+            android:text="Register"
             android:textAllCaps="false" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="32dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/admin_panel_link"
-                android:text="Admin Panel"
-                android:textColor="@color/blue"
-                android:layout_marginEnd="16dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/not_admin_panel_link"
-                android:text="Standard Panel"
-                android:textColor="@color/blue"/>
-
-        </LinearLayout>
 
     </LinearLayout>
 

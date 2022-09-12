@@ -16,6 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun listeners() {
 
+        //  Send a user to register activity
+        main_join_btn.setOnClickListener {
+
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
         //  Send user to login activity
         main_login_btn.setOnClickListener {
 
