@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/normal_btn"
-            android:text="Register"
+            android:text="Create Account"
             android:textAllCaps="false" />
 
 
