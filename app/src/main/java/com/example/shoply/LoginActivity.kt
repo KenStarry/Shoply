@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
 
                                 Toast.makeText(this@LoginActivity, "Welcome Admin, you logged in successfully!", Toast.LENGTH_SHORT).show()
 
-                                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                                val intent = Intent(this@LoginActivity, AdminCategoryActivity::class.java)
                                 startActivity(intent)
 
                             } else if (parentDbName == "Users") {
