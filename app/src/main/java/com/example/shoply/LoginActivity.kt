@@ -83,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
                     //  The user exists
                     val usersData: Users? = snapshot.child(parentDbName).child(phone).getValue(Users::class.java)
 
-                    if (usersData!!.phone == phone) {
+                    if (usersData!!.phone ==   phone) {
                         if (usersData.password == password) {
 
                             //  Check if the user is an admin or not
