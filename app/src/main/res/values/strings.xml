@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Shoply</string>
+    <string name="login_admin">Login Admin</string>
 </resources>
