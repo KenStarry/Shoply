@@ -98,7 +98,12 @@ class LoginActivity : AppCompatActivity() {
 
                                 Toast.makeText(this@LoginActivity, "Logged in successfully!", Toast.LENGTH_SHORT).show()
 
-                                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                                //  Save the user to the Prevalent Class
+                                Prevalent().currentOnlineUser = usersData
+
+                                val intent = Intent(this@LoginActivity, HomeActivity::class.java).apply {
+                                    putExtra("USER_NAME", usersData.name)
+                                }
                                 startActivity(intent)
 
                             }

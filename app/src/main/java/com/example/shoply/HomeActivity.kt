@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.snackbar.Snackbar
@@ -16,7 +19,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shoply.databinding.ActivityHomeBinding
+import com.example.shoply.prevalent.Prevalent
 import io.paperdb.Paper
+import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -53,6 +58,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val navView: NavigationView = binding.navView
         navView.setNavigationItemSelectedListener(this)
+
+        //  Get the header view of the navigation view
+        val headerView: View = navView.getHeaderView(0)
+        val userName: TextView = headerView.user_profile_name
+        val userProfileImage: ImageView = headerView.user_profile_image
+
+        //  Set username from the Prevalent Class
+        userName.text = intent.getStringExtra("USER_NAME")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
