@@ -1,13 +1,26 @@
 package com.example.shoply.models
 
-class Products(
-    val p_name: String?,
-    val p_price: String?,
-    val p_description: String?,
-    val p_image: String?,
-    val p_category: String?,
-    val p_date: String?,
-    val p_time: String?
+data class Products(
+    var pid: String?,
+    var name: String?,
+    var price: String?,
+    var description: String?,
+    var image: String?,
+    var category: String?,
+    var date: String?,
+    var time: String?
+
 
 ) {
+
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    )
 }

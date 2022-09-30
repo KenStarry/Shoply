@@ -2,24 +2,31 @@ package com.example.shoply
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoply.databinding.ActivityHomeBinding
-import com.example.shoply.prevalent.Prevalent
+import com.example.shoply.models.Products
+import com.example.shoply.viewholder.ProductsViewHolder
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.core.utilities.Utilities
+import com.squareup.picasso.Picasso
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
@@ -27,10 +34,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var productsRef: DatabaseReference
+
+    private lateinit var recyclerProducts: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        productsRef = FirebaseDatabase.getInstance().reference.child("Products")
         Paper.init(this)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -66,7 +77,52 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //  Set username from the Prevalent Class
         userName.text = intent.getStringExtra("USER_NAME")
+
+        //  Recycler view for the products displayed in home
+        recyclerProducts = findViewById(R.id.recycler_products)
+        recyclerProducts.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(this)
+        recyclerProducts.layoutManager = layoutManager
     }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        val options: FirebaseRecyclerOptions<Products> =
+            FirebaseRecyclerOptions.Builder<Products>()
+                .setQuery(productsRef, Products::class.java)
+                .build()
+
+        //  Firebase recycler adapter
+        val adapter: FirebaseRecyclerAdapter<Products, ProductsViewHolder> = (object : FirebaseRecyclerAdapter<Products, ProductsViewHolder>(options){
+
+            override fun onBindViewHolder(
+                holder: ProductsViewHolder,
+                position: Int,
+                model: Products
+            ) {
+
+                holder.prodName.text = model.name.toString()
+                holder.prodDesc.text = model.description.toString()
+                holder.prodPrice.text = model.price.toString()
+                Picasso.get().load(model.image).into(holder.prodImageView)
+
+                Toast.makeText(this@HomeActivity, model.image.toString(), Toast.LENGTH_SHORT).show()
+
+            }
+
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
+                //  Inflating our layout
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+                return ProductsViewHolder(view)
+            }
+        })
+
+        recyclerProducts.adapter = adapter
+        adapter.startListening()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -65,4 +65,7 @@ dependencies {
 
     //  Rounded Image View
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //  Picasso image loader
+    implementation 'com.squareup.picasso:picasso:2.8'
 }
